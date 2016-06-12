@@ -10,6 +10,11 @@ App.controller('UserController', function ($scope, $http) {
         $scope.users = data;
 
     });
+
+    $http.get('/user/role').success(function (data) {
+        $scope.roles_all = data;
+    });
+
     $scope.selected = {};
 
     $scope.getTemplate = function (user) {
@@ -17,15 +22,19 @@ App.controller('UserController', function ($scope, $http) {
         else return 'display';
     };
 
-
     $scope.addUser = function () {
+        $scope.roleArray = [];
 
-        $http.post('user', $scope.user).success(function (data) {
+        angular.forEach($scope.roles_all, function(rol){
+            if (!!rol.selected) $scope.roleArray.push(rol.id)
+        })
+
+        $http.post('user', $scope.user,{ params: { rolesId:$scope.roleArray  }}).success(function (data) {
             $scope.user = {};
             $scope.users = data;
-
         });
     };
+
     $scope.remove = function(user) {
        $http.delete('/user', { params: { userId: user.id }}).success(function (data) {
             $scope.users = data;
@@ -41,20 +50,17 @@ App.controller('UserController', function ($scope, $http) {
     };
 
     $scope.userUpdate = function (user) {
-        $http.get('/user/edit', { params: { userId: user.id,userName: user.name,userPassword: user.password }}).success(function (data) {
-            /** @namespace user.password */
+        /** @namespace user.login */
+        /** @namespace user.password */
+        $http.get('/user/edit', { params: { userId: user.id,userName: user.name,userPassword: user.password,userLogin: user.login}}).success(function (data) {
             $scope.users = data;
             $scope.selected = {};
         })
-
     };
 
     $scope.findRoles = function (name) {
-        console.log(name);
-
         $http.get('/user/find', { params: { name: name}}).success(function (data) {
             $scope.roles = data;
         })
     };
-
 });

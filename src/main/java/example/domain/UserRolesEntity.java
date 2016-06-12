@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 
 
 @Entity
@@ -12,6 +13,7 @@ import javax.persistence.*;
 public class UserRolesEntity {
 
     @Id
+    @GeneratedValue
     @Column(name = "id")
     @JsonProperty
     private long id;
@@ -25,7 +27,6 @@ public class UserRolesEntity {
     @Column(name = "role_id")
     @JsonProperty
     private long roleId;
-
 
     public long getId() {
         return id;

@@ -2,6 +2,7 @@ package example.service.impl;
 
 import example.dao.UserDao;
 
+import example.domain.RolesEntity;
 import example.domain.UsersEntity;
 import example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +25,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void add(UsersEntity user) {
-        userDao.add(user);
-    }
+    public void add(UsersEntity user,ArrayList<Long> roleId) {userDao.add(user,roleId);}
 
     @Override
     public void remove(Long userId) {
@@ -39,7 +38,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void editUser(Long id,String name,String password){
-         userDao.editUser(id,name,password);
+    public Collection<RolesEntity> getRoles() {return userDao.getRoles();}
+
+    @Override
+    public void editUser(Long id,String name,String password,String login){
+         userDao.editUser(id,name,password,login);
     }
 }

@@ -12,17 +12,6 @@ import java.util.Collection;
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.NONE, getterVisibility = JsonAutoDetect.Visibility.NONE)
 public class UsersEntity {
 
-    @ManyToMany(targetEntity=RolesEntity.class,mappedBy="users")
-    private Collection<RolesEntity> roles;
-
-    public Collection<RolesEntity> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Collection<RolesEntity> roles) {
-        this.roles = roles;
-    }
-
     @Id
     @GeneratedValue
     @Column(name = "id")
@@ -44,6 +33,16 @@ public class UsersEntity {
     @JsonProperty
     private String password;
 
+    @ManyToMany(targetEntity=RolesEntity.class,mappedBy="users")
+    private Collection<RolesEntity> roles;
+
+    public Collection<RolesEntity> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Collection<RolesEntity> roles) {
+        this.roles = roles;
+    }
 
     public long getId() {
         return id;

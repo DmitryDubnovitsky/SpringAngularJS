@@ -1,6 +1,7 @@
 package example.controller;
 
 
+import example.domain.RolesEntity;
 import example.domain.UsersEntity;
 import example.service.UserService;
 
@@ -24,8 +25,8 @@ import org.springframework.web.bind.annotation.*;
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public Collection<UsersEntity> add(@RequestBody UsersEntity user){
-        userService.add(user);
+    public Collection<UsersEntity> add(@RequestBody UsersEntity user,@RequestParam ArrayList<Long> rolesId){
+        userService.add(user,rolesId);
         return getAll();
     }
 
@@ -35,8 +36,8 @@ import org.springframework.web.bind.annotation.*;
     }
 
     @RequestMapping(method = RequestMethod.GET,value="/edit")
-    public Collection<UsersEntity> update(@RequestParam Long userId,@RequestParam String userName,@RequestParam String userPassword) {
-        userService.editUser(userId,userName,userPassword);
+    public Collection<UsersEntity> update(@RequestParam Long userId,@RequestParam String userName,@RequestParam String userPassword,@RequestParam String userLogin) {
+        userService.editUser(userId,userName,userPassword,userLogin);
         return getAll();
     }
 
@@ -45,5 +46,8 @@ import org.springframework.web.bind.annotation.*;
         userService.remove(userId);
         return getAll();
     }
+
+        @RequestMapping(method = RequestMethod.GET,value="/role")
+        public Collection<RolesEntity> getRoles() {return userService.getRoles();}
 
 }

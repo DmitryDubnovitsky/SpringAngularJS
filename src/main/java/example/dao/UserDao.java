@@ -11,13 +11,14 @@ public interface UserDao {
 
     public Collection<UsersEntity> getAll();
 
-    public void add(UsersEntity user);
+    public void add(UsersEntity user,ArrayList<Long> roleId);
 
     public void remove(Long userId);
 
     public ArrayList<String> findUserByName(String name);
 
-    public void editUser(Long id,String name,String password);
+    public void editUser(Long id,String name,String password,String login);
 
+    public Collection<RolesEntity> getRoles();
 
 }

@@ -33,16 +33,15 @@
                     </td>
                     </script>
 
-            <script type="text/ng-template" id="edit">
-                <td><input type="text" class="form-control" ng-model="selected.name" /></td>
-                <td><input type="text" class="form-control" ng-model="selected.login" /></td>
-                <td><input type="text" class="form-control" ng-model="selected.password" /></td>
-                <td>
-                    <button class="btn btn-default" ng-click="userUpdate(selected)">Save</button>
-                </td>
-                <td><button class="btn btn-default" ng-click="reset()">Cancel</button></td>
-            </script>
-
+                    <script type="text/ng-template" id="edit">
+                      <td><input type="text" class="form-control" ng-model="selected.name" /></td>
+                      <td><input type="text" class="form-control" ng-model="selected.login" /></td>
+                      <td><input type="text" class="form-control" ng-model="selected.password" /></td>
+                      <td>
+                        <button class="btn btn-default" ng-click="userUpdate(selected)">Save</button>
+                     </td>
+                     <td><button class="btn btn-default" ng-click="reset()">Cancel</button></td>
+                   </script>
 
             <form>
                 <div class="form-group">
@@ -60,6 +59,10 @@
                     <input type="text" class="form-control" id="password" placeholder="Enter password"
                            maxlength="255" ng-model="user.password">
                 </div>
+                <div class="checkbox" ng-repeat="rol in roles_all">
+                    <label><input type="checkbox" ng-model="rol.selected" value="">{{rol.name}}</label>
+                </div>
+                <br/>
                 <button  type="submit" class="btn btn-default" ng-click="addUser()">Add User</button>
             </form>
 
@@ -69,19 +72,15 @@
                     <input type="text" class="form-control" id="keywords" placeholder="Enter User Name"
                            maxlength="255" ng-model="name">
                 </div>
-
                 <button type="submit" class="btn btn-default" ng-click="findRoles(name)">Find Roles</button>
                 <div align="center">
                     <p  style="color:chocolate">Name : {{ name }}
                     <p  style="color:chocolate"  ng-repeat="role in roles">Found role name : {{role }}</p>
-
-
                 </div>
             </form>
         </div>
     </div>
 </div>
-
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
