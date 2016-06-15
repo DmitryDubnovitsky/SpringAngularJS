@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Transactional
 @Service
@@ -25,7 +25,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void add(UsersEntity user,ArrayList<Long> roleId) {userDao.add(user,roleId);}
+    public void add(UsersEntity user, List<Long> roleId) {
+        userDao.add(user, roleId);
+    }
 
     @Override
     public void remove(Long userId) {
@@ -33,15 +35,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ArrayList<String> findUserByName(String name) {
-        return userDao.findUserByName(name);
+    public List<String> findRolesByUserName(String name) {
+        return userDao.findRolesByUserName(name);
     }
 
     @Override
-    public Collection<RolesEntity> getRoles() {return userDao.getRoles();}
+    public Collection<RolesEntity> getRoles() {
+        return userDao.getRoles();
+    }
 
     @Override
-    public void editUser(Long id,String name,String password,String login){
-         userDao.editUser(id,name,password,login);
+    public void editUser(Long id, String name, String password, String login) {
+        userDao.editUser(id, name, password, login);
     }
 }

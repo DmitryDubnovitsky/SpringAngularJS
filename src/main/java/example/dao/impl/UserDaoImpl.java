@@ -2,8 +2,8 @@ package example.dao.impl;
 
 import example.dao.UserDao;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -21,14 +21,14 @@ public class UserDaoImpl implements UserDao {
     private EntityManager entityManager;
 
     @Override
-    public void add(UsersEntity user,ArrayList<Long> roleId) {
+    public void add(UsersEntity user, List<Long> roleId) {
         entityManager.persist(user);
 
-        for(Long role : roleId){
-            UserRolesEntity ure= new UserRolesEntity();
-              ure.setUserId(user.getId());
-              ure.setRoleId(role);
-              entityManager.persist(ure);
+        for (Long role : roleId) {
+            UserRolesEntity ure = new UserRolesEntity();
+            ure.setUserId(user.getId());
+            ure.setRoleId(role);
+            entityManager.persist(ure);
         }
     }
 
@@ -43,32 +43,32 @@ public class UserDaoImpl implements UserDao {
         UsersEntity user = entityManager.find(UsersEntity.class, userId);
         Query q = entityManager.createQuery(
                 (String.format("select id from UserRolesEntity where userId = :userId")));
-        q.setParameter("userId",userId);
-        ArrayList<Long> id = (ArrayList<Long>)q.getResultList();
+        q.setParameter("userId", userId);
+        List<Long> id = (List<Long>) q.getResultList();
 
-         for(Long roleId:id) {
+        for (Long roleId : id) {
             UserRolesEntity role = entityManager.find(UserRolesEntity.class, roleId);
             if (null != role) {
                 entityManager.remove(role);
             }
-         }
-            if (null != user) {
+        }
+        if (null != user) {
             entityManager.remove(user);
-            }
+        }
     }
 
     @Override
-    public  ArrayList<String> findUserByName(String name) {
+    public List<String> findRolesByUserName(String name) {
 
         Query q = entityManager.createQuery
-         (String.format("select name from RolesEntity  where id in (select  roleId from UserRolesEntity where userId in (select id from  UsersEntity where name= :name))"));
-          q.setParameter("name",name);
-          ArrayList<String> result= (ArrayList<String>) q.getResultList();
-          return  result;
+                (String.format("select name from RolesEntity  where id in (select  roleId from UserRolesEntity where userId in (select id from  UsersEntity where name= :name))"));
+        q.setParameter("name", name);
+        List<String> result = (List<String>) q.getResultList();
+        return result;
     }
 
     @Override
-    public  void editUser(Long id,String name,String password,String login){
+    public void editUser(Long id, String name, String password, String login) {
 
         UsersEntity user = entityManager.find(UsersEntity.class, id);
         user.setName(name);

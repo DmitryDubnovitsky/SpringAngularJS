@@ -33,7 +33,7 @@ public class UsersEntity {
     @JsonProperty
     private String password;
 
-    @ManyToMany(targetEntity=RolesEntity.class,mappedBy="users")
+    @ManyToMany(targetEntity = RolesEntity.class, mappedBy = "users")
     private Collection<RolesEntity> roles;
 
     public Collection<RolesEntity> getRoles() {
@@ -51,7 +51,6 @@ public class UsersEntity {
     public void setId(long id) {
         this.id = id;
     }
-
 
     public String getName() {
         return name;
@@ -77,27 +76,5 @@ public class UsersEntity {
         this.password = password;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
 
-        UsersEntity that = (UsersEntity) o;
-
-        if (id != that.id) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (login != null ? !login.equals(that.login) : that.login != null) return false;
-        if (password != null ? !password.equals(that.password) : that.password != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (login != null ? login.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        return result;
-    }
 }
